@@ -1,0 +1,136 @@
+<html>
+<body>
+    <header>
+        <label><strong>Lista de Tareas</strong></label>
+    </header>
+    <section class="main">
+        <section class="sec1">
+            <div class="controles">
+                <input type="text">
+                <button onclick="agregar()" class="but1">nuevo</button>
+            </div>
+        </section>
+        <section class="sec2">
+            <ul class="lista1">
+                <li>
+                    <div class="elem">
+                        <input type="checkbox" name="chk1" id="chk1">
+                        <label class="column1" for="chk1">Tarea 1</label>
+                        <button onclick="borrar()" class="boton">borrar</button>
+                    </div>
+                </li>
+                <li>
+                    <div class="elem">
+                        <input type="checkbox" name="chk2" id="chk2">
+                        <label class="column2" for="chk2">Tarea 2</label>
+                        <button onclick="borrar()" class="boton">borrar</button>
+                    </div>
+                </li>
+                <li>
+                    <div class="elem">
+                        <input type="checkbox" name="chk3" id="chk3">
+                        <label class="column3" for="chk3">Tarea 3</label>
+                        <button onclick="borrar()" class="boton">borrar</button>
+                    </div>
+                </li>
+                <li>
+                    <div class="elem">
+                        <input type="checkbox" name="chk4" id="chk4">
+                        <label class="column4" for="chk4">Tarea 4</label>
+                        <button onclick="borrar()" class="boton">borrar</button>
+                    </div>
+                </li>            
+            </ul>
+        </section>
+    </section>
+</body>
+</html>
+
+<style>
+
+header{
+    color:#6F6F6F;
+    margin:20px 50px;
+}
+
+label {
+    font-family:sans-serif;
+}
+
+header label{
+    font-size:20px;
+}
+
+.sec1 .controles {
+    display:inline-flex;
+    margin-bottom:10px;
+    height:25px;
+}
+.sec1 .controles input {
+    border:1px groove #818181;
+    margin-left:8px;
+}
+
+.sec1 .controles .but1 {
+    margin-left:0;
+    border-style:solid;
+    color:#fff;
+}
+
+.sec1 .controles .but1 {
+    border-color:#0096EC;
+    background-color:#0096EC;
+    cursor:pointer;
+}
+
+.sec2 .lista1 {
+    color:#707070;
+    padding-left:0;
+    list-style:none;
+    display:inline-block;
+}
+
+.sec2 .lista1 li {
+    padding:4px;
+    padding-right:100px;
+}
+
+.sec2 .lista1 li .elem {
+    height:20px;
+    width:130px;
+}
+
+.sec2 .lista1 li input:checked + label {
+    text-decoration: line-through;
+}
+
+.sec2 .lista1 li label {
+    position:relative;
+    left:15%;
+}
+
+.sec2 .lista1 li .boton {
+    position:relative;
+    float:right;
+    left:70%;
+    background-color:#fff;
+    color:#707070; 
+    border:1px solid #707070;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+.sec .lista1 li:nth-child(odd) {
+    background-color:#EEEFEF;
+}
+
+</style>
+    
+<script>
+function borrar(){
+    alert("Esto debería borrar una tarea si funcionara de verdad")
+}
+function agregar(){
+    alert("Esto podría agregar una tarea, pero no importa")
+}
+</script>
