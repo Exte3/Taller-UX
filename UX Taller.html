@@ -133,4 +133,61 @@ function borrar(){
 function agregar(){
     alert("Esto podría agregar una tarea, pero no importa")
 }
+
+var datos = window.indexedDB.open("basededatos",1);
+
+request.onerror = function(event){
+    console.log('Error al abrir la base de datos');
+};
+
+request.onsucces = function(event){
+    db = request.result;
+    console.log("success: "+ db);
+};
+
+request.onupgradeneeded = function(event){
+    var db = event.target.result;
+    var objectStore = db.createObjectStore("tarea", {keyPath: "id"});
+    for(var i in tareas){
+        objectStore.add(tareas[i]);
+    }
+}
+
+function leerTodo(){
+    var objectStore = db.transaction("tarea").objectStore("tarea");
+    objectStore.openCursor().onsucces = function(event){
+        var cursor = event.target.result;
+        
+        if(cursor){
+            alert("Nombre: " + cursor.value.nombre + ", Texto: "+ cursor.value.texto +", Terminado: "+ cursor.value.terminado);
+            cursor.continue();
+        } else {
+            alert("No hay más tareas");
+        }
+    };
+}
+
+function agregar(){
+    var nuevaTarea = {id: "1", texto: "Hacer la primera tarea", terminado: true}
+    var request = db.transaction("tarea", "readwrite")
+    .objectStore("tarea")
+    .add(nuevoAlumno);
+    request.onsucces = function(event){
+        alert("Se agregó a la tarea con id "+ nuevaTarea.id);
+    };
+    request.onerror = function(event){
+        alert("Ya existe la tarea con id "+nuevaTarea.id+" en la base de datos");
+    }
+}
+
+function borrar(id){
+    var request = db.transaction(["tarea"], "readwrite")
+    .objectStore("tarea")
+    .delete(id);
+    request.onsucces = function(event){
+        console.log(event)
+        alert("Se eliminó la tarea con id "+id);
+    };
+}
+
 </script>
