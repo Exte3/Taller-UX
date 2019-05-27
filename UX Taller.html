@@ -127,7 +127,7 @@ header label{
 </style>
     
 <script>
-fetch('http://my-json-server.typicode.com/emiliotapia/taller2/todos')
+/*fetch('http://my-json-server.typicode.com/emiliotapia/taller2/todos')
     .then(response=>{
         if(!response.ok){
             throw Error(response.status)
@@ -139,7 +139,7 @@ fetch('http://my-json-server.typicode.com/emiliotapia/taller2/todos')
     
     .then(response=>{console.log("Response", response)})
     .catch(e=>{console.log(e)})
-
+*/
 /*var promesa = new Promise(function(resolve, reject){
     //aquí llamar a la cuestión de datos
     if(){
@@ -149,6 +149,33 @@ fetch('http://my-json-server.typicode.com/emiliotapia/taller2/todos')
         reject(Error("fail"));
     }
 });*/
+
+//prefixes of implementation that we want to test
+window.indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || 
+window.msIndexedDB;
+//prefixes of window.IDB objects
+window.IDBTransaction = window.IDBTransaction || window.webkitIDBTransaction || 
+window.msIDBTransaction;
+window.IDBKeyRange = window.IDBKeyRange || 
+window.webkitIDBKeyRange || window.msIDBKeyRange
+ 
+if (!window.indexedDB) {
+   window.alert("Your browser doesn't support a stable version of IndexedDB.")
+}
+
+var tareas = new Promise(function(resolve, reject){
+    fetch('http://my-json-server.typicode.com/emiliotapia/taller2/todos')
+    .then(response=>{
+        if(!response.ok){
+            reject(Error(response.status));
+        }
+        else{
+            resolve(response.json());
+        }
+    })
+    .then(response=>{console.log(tareas)})
+    .catch(e=>{console.log(e)}) 
+});
 
 
 var request = window.indexedDB.open("basededatos",1);
@@ -186,11 +213,13 @@ function leerTodo(){
 }
 
 function agregar(){
+    console.log(tareas);
+    var largo = Object.keys(tareas).length;
     var nuevaTarea = {id: "1", texto: "Hacer la primera tarea", terminado: true}
     
     var request = db.transaction("tarea", "readwrite")
     .objectStore("tarea")
-    .add(nuevoAlumno);
+    .add(nuevaTarea);
     
     request.onsucces = function(event){
         alert("Se agregó a la tarea con id "+ nuevaTarea.id);
